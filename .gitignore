@@ -15,3 +15,5 @@
 *.DotSettings.user
 /.vsconfig
 /UserSettings
+*.idea
+/.idea
