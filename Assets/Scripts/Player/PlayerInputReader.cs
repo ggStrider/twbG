@@ -1,16 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace twbG.PlayerSystemComponents
+namespace Player
 {
+    [RequireComponent(typeof(PlayerSystem))]
     public class PlayerInputReader : MonoBehaviour
     {
-        [SerializeField] private PlayerSystem _playerSystem;
-
+        private PlayerSystem _playerSystem;
         private PlayerControllers _playerActionMap;
 
         private void Awake()
         {
+            _playerSystem = GetComponent<PlayerSystem>();
+
             _playerActionMap = new PlayerControllers();
 
             _playerActionMap.PlayerMainControllers.ChangeGravity.performed += OnChangeGravity;
@@ -21,13 +23,15 @@ namespace twbG.PlayerSystemComponents
             _playerActionMap.Enable();
         }
 
-        private void OnDisable() =>
+        private void OnDisable()
+        {
             _playerActionMap.Dispose();
+        }
 
         private void OnChangeGravity(InputAction.CallbackContext context)
         {
             var isPressing = context.ReadValue<float>();
-            _playerSystem.ChangeGravity(isPressing > 0);
+            _playerSystem.OnChangingGravity(isPressing > 0);
         }
 
         private void OnInteract(InputAction.CallbackContext context)
