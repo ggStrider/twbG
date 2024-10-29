@@ -8,7 +8,7 @@ namespace twbG.Mechanics
     public class CheckObjectsInRange : MonoBehaviour
     {
         [SerializeField] private float _radius;
-        [SerializeField] private readonly Collider2D[] _interactionResult = new Collider2D[10]; 
+        private readonly Collider2D[] _interactionResult = new Collider2D[10]; 
 
         public GameObject[] CheckRange()
         {
