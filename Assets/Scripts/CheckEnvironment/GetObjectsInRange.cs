@@ -1,16 +1,18 @@
-using System.Collections.Generic;
-using twbG.Tools;
 using UnityEditor;
 using UnityEngine;
 
-namespace twbG.Mechanics
+using twbG.Tools;
+
+using System.Collections.Generic;
+
+namespace CheckEnvironment
 {
-    public class CheckObjectsInRange : MonoBehaviour
+    public class GetObjectsInRange : MonoBehaviour
     {
-        [SerializeField] private float _radius;
+        [SerializeField] private float _radius = 1f;
         private readonly Collider2D[] _interactionResult = new Collider2D[10]; 
 
-        public GameObject[] CheckRange()
+        public GameObject[] GetObjects()
         {
             var size = Physics2D.OverlapCircleNonAlloc(
                 transform.position, _radius, _interactionResult);

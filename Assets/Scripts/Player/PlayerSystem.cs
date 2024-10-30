@@ -1,8 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-using twbG.Mechanics;
 using Mechanics;
+using Interact;
+using CheckEnvironment;
+
+using System.Collections.Generic;
 
 namespace Player
 {
@@ -13,9 +15,9 @@ namespace Player
         [SerializeField] private SlowMo _slowMo;
 
         [Space]
-        [SerializeField] private CheckObjectsInRange _interactComponent;
+        [SerializeField] private GetObjectsInRange _interactComponent;
 
-        private readonly Dictionary<GravitySides, Vector2> _gravitySides = new Dictionary<GravitySides, Vector2>()
+        private readonly Dictionary<GravitySides, Vector2> _gravitySides = new Dictionary<GravitySides, Vector2>
         {
             [GravitySides.Down] = new Vector2(0, -DEFAULT_GRAVITY),
             [GravitySides.Up] = new Vector2(0, DEFAULT_GRAVITY),
@@ -36,7 +38,7 @@ namespace Player
         private void Awake()
         {
             _slowMo = GetComponent<SlowMo>();
-            _interactComponent = GetComponentInChildren<CheckObjectsInRange>();
+            _interactComponent = GetComponentInChildren<GetObjectsInRange>();
             
             Physics2D.gravity = _gravitySides[GravitySides.Down];
         }
@@ -64,21 +66,19 @@ namespace Player
 
         public void Interact()
         {
-            var range = _interactComponent.CheckRange();
+            var objectsInRange = _interactComponent.GetObjects();
 
-            foreach (var check in range)
+            foreach (var currentObject in objectsInRange)
             {
-                var interactActionComponent = check.GetComponent<OnInteractAction>();
-
-                if (interactActionComponent != null)
-                    interactActionComponent.DoAction();
+                var interactComponent = currentObject.GetComponent<IInteract>();
+                interactComponent?.Interact();
             }
         }
 
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            var interact = GetComponentInChildren<CheckObjectsInRange>();
+            var interact = GetComponentInChildren<GetObjectsInRange>();
             if (interact == null)
             {
                 Debug.LogWarning("There is no CheckObjectsInRange component in children");
