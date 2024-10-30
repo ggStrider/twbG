@@ -23,7 +23,7 @@ namespace Infrastructure
             InitializeCoins(coins);
 
             var session = FindObjectOfType<GameSession>();
-            session.Initialize();
+            session.Initialize(coinsManager);
             
             var updateUI = GetComponent<UpdateUI>();
             updateUI.Initialize(session, coinsManager);

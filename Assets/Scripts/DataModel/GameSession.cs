@@ -25,9 +25,8 @@ namespace DataModel
             if(Instance == null) Instance = this;
         }
 
-        public void Initialize()
+        public void Initialize(CoinsManager coinsManager)
         {
-            var coinsManager = FindObjectOfType<CoinsManager>();
             coinsManager.RegisterObserverFirstInList(this);
         }
 
