@@ -1,20 +1,22 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace twbG.CollisionsTriggers
+using System;
+
+namespace CheckEnvironment
 {
     public class TriggerEnter : MonoBehaviour
     {
         [SerializeField] private string _tag;
         [SerializeField] private EnterEvent _action;
 
-        private void OnTriggerEnter2D(Collider2D collider)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (collider.CompareTag(_tag))
-                _action.Invoke(collider.gameObject);
+            if (_tag == string.Empty || !other.CompareTag(_tag)) return;
+            _action.Invoke(other.gameObject);
         }
 
-        [System.Serializable]
+        [Serializable]
         public class EnterEvent : UnityEvent<GameObject> { }
     }
 }
