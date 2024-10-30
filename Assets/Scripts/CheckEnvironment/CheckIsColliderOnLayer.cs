@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace twbG.CollisionsTriggers
+namespace CheckEnvironment
 {
-    public class CheckLayer : MonoBehaviour
+    public class CheckIsColliderOnLayer : MonoBehaviour
     {
         [SerializeField] private Collider2D _collider;
         [SerializeField] private LayerMask _layer;
