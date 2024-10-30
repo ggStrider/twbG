@@ -1,13 +1,14 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Shooty.Animations
+using System;
+
+namespace Environment
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class SpriteAnimation : MonoBehaviour
     {
-        [SerializeField][Range(1, 30)] private int _frameRate = 10;
+        [SerializeField] [Range(1, 30)] private int _frameRate = 10;
         [SerializeField] private UnityEvent<string> _onComplete;
         [SerializeField] private AnimationClip[] _clips;
 
