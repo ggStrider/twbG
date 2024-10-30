@@ -1611,7 +1611,7 @@ PrefabInstance:
       objectReference: {fileID: 1369257087}
     - target: {fileID: 1402799444324949538, guid: 209beac5c482f8e40bb12ee18ec001aa, type: 3}
       propertyPath: _onTake.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: OnChangeUI
+      value: UpdateAllUI
       objectReference: {fileID: 0}
     - target: {fileID: 1402799444324949597, guid: 209beac5c482f8e40bb12ee18ec001aa, type: 3}
       propertyPath: m_Name

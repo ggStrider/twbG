@@ -1,23 +1,34 @@
+using Collectable.Managers;
+using Collectable.Observers;
 using UnityEngine;
 
-namespace twbG.Model
+namespace DataModel
 {
-    public class GameSession : MonoBehaviour
+    public class GameSession : MonoBehaviour, ICoinAdded
     {
         [SerializeField] private PlayerData _data;
+        
         public PlayerData Data => _data;
         public PlayerData _save;
+        
+        public static GameSession Instance { get; private set; }
 
         private void Awake()
         {
             if (IsSessionsExist())
             {
                 DestroyImmediate(gameObject);
+                return;
             }
-            else
-            {
-                DontDestroyOnLoad(this);
-            }
+            DontDestroyOnLoad(this);
+            
+            if(Instance == null) Instance = this;
+        }
+
+        public void Initialize()
+        {
+            var coinsManager = FindObjectOfType<CoinsManager>();
+            coinsManager.RegisterObserverFirstInList(this);
         }
 
         private bool IsSessionsExist()
@@ -40,6 +51,11 @@ namespace twbG.Model
         public void Load()
         {
             _data = _save.Clone();
+        }
+
+        public void OnCoinAdded()
+        {
+            _data.Coins++;
         }
     }
 }
