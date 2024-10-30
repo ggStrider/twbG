@@ -32,5 +32,15 @@ namespace UI
         {
             _coinCountTextComponent.text = $"{_textBeforeCoinsCount}{_session.Data.Coins}";
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_coinCountTextComponent == null)
+            {
+                Debug.Log("<color=yellow>Coins count component is null!!!</color>");
+            }
+        }
+#endif
     }
 }

@@ -5,14 +5,18 @@ using Collectable.Managers;
 
 using UI;
 using DataModel;
+using Sounds;
 
 namespace Infrastructure
 {
+    [RequireComponent(typeof(CoinsManager))]
+    [RequireComponent(typeof(UpdateUI))]
+    [RequireComponent(typeof(AudioManagerObserver))]
     public class Bootstrap : MonoBehaviour
     {
         private void Awake()
         {
-            var coinsManager = FindObjectOfType<CoinsManager>();
+            var coinsManager = GetComponent<CoinsManager>();
             coinsManager.Initialize();
 
             var coins = FindObjectsOfType<Coin>();
@@ -21,8 +25,11 @@ namespace Infrastructure
             var session = FindObjectOfType<GameSession>();
             session.Initialize();
             
-            var updateUI = FindObjectOfType<UpdateUI>();
+            var updateUI = GetComponent<UpdateUI>();
             updateUI.Initialize(session, coinsManager);
+
+            var audioManagerObserver = GetComponent<AudioManagerObserver>();
+            audioManagerObserver.Initialize(coinsManager);
         }
 
         private void InitializeCoins(Coin[] coins)
