@@ -1,9 +1,9 @@
+﻿using UnityEngine;
 using System.Collections;
-using UnityEngine;
 
-namespace twbG.Mechanics
+namespace Mechanics
 {
-    public class RotateHelpObjects : MonoBehaviour
+    public class test : MonoBehaviour
     {
         [SerializeField] private SmoothRotateSettings[] _smoothRotateSettings;
         [SerializeField] private Transform _buttonsParent;
